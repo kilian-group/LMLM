@@ -1,0 +1,244 @@
+{
+    "entities": [
+        "Beyonc\u00e9",
+        "I Am... Sasha Fierce",
+        "Beyonc\u00e9 Giselle Knowles-Carter",
+        "Destiny\\'s Child",
+        "Dangerously in Love"
+    ],
+    "relationships": [
+        "Lead Singer",
+        "Fifth Solo Album",
+        "Destiny\\'s Child Records Sold",
+        "Time 100 Most Influential",
+        "Birth Date",
+        "Fourth Solo Album",
+        "Film Role",
+        "Song of the Year",
+        "Golden Globe Nomination",
+        "Occupation",
+        "Billboard Top Radio Songs Artist",
+        "Political View",
+        "Nationality",
+        "Billboard Artist of the Millennium",
+        "Disbandment Date",
+        "RIAA Certification",
+        "Manager",
+        "Billboard Top Female Artist",
+        "Second Solo Album",
+        "Debut Album",
+        "Grammy Awards",
+        "Solo Records Sold",
+        "Grammy Nominations Rank",
+        "Career Duration",
+        "Grammy Awards Won",
+        "Starring Role",
+        "Birthplace",
+        "Spouse",
+        "Third Solo Album",
+        "Forbes Most Powerful Female Musician",
+        "Music Hiatus"
+    ],
+    "return_values": [
+        "five",
+        "I Am... Sasha Fierce (2008)",
+        "Top Female Artist of the 2000s",
+        "Dangerously in Love (2003)",
+        "Beyonc\u00e9 (2013)",
+        "60 million",
+        "19 years",
+        "Dreamgirls (2006)",
+        "4 (2011)",
+        "2010",
+        "singer, songwriter, record producer, actress",
+        "most nominated woman",
+        "Single Ladies (Put a Ring on It)",
+        "Beyonc\u00e9 Giselle Knowles-Carter",
+        "118 million",
+        "American",
+        "June 2005",
+        "Top Certified Artist in America during the 2000s",
+        "B'Day (2006)",
+        "The Pink Panther (2006)",
+        "six",
+        "most powerful female musician of 2015",
+        "100 most influential people in the world in 2013 and 2014",
+        "Top Radio Songs Artist of the Decade",
+        "Mathew Knowles",
+        "Obsessed (2009)",
+        "Houston, Texas",
+        "20",
+        "modern-day feminist",
+        "Artist of the Millennium",
+        "Cadillac Records (2008)",
+        "September 4, 1981",
+        "Jay Z"
+    ],
+    "triplets": [
+        [
+            "Beyonc\u00e9",
+            "Grammy Awards Won",
+            "20"
+        ],
+        [
+            "Beyonc\u00e9",
+            "RIAA Certification",
+            "Top Certified Artist in America during the 2000s"
+        ],
+        [
+            "Beyonc\u00e9 Giselle Knowles-Carter",
+            "Nationality",
+            "American"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Starring Role",
+            "The Pink Panther (2006)"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Billboard Top Female Artist",
+            "Top Female Artist of the 2000s"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Music Hiatus",
+            "2010"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Billboard Top Radio Songs Artist",
+            "Top Radio Songs Artist of the Decade"
+        ],
+        [
+            "Beyonc\u00e9 Giselle Knowles-Carter",
+            "Debut Album",
+            "Dangerously in Love (2003)"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Political View",
+            "modern-day feminist"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Film Role",
+            "Cadillac Records (2008)"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Third Solo Album",
+            "I Am... Sasha Fierce (2008)"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Second Solo Album",
+            "B'Day (2006)"
+        ],
+        [
+            "I Am... Sasha Fierce",
+            "Grammy Awards",
+            "six"
+        ],
+        [
+            "Beyonc\u00e9 Giselle Knowles-Carter",
+            "Occupation",
+            "singer, songwriter, record producer, actress"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Billboard Artist of the Millennium",
+            "Artist of the Millennium"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Fourth Solo Album",
+            "4 (2011)"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Golden Globe Nomination",
+            "Dreamgirls (2006)"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Destiny\\'s Child Records Sold",
+            "60 million"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Solo Records Sold",
+            "118 million"
+        ],
+        [
+            "Beyonc\u00e9 Giselle Knowles-Carter",
+            "Birth Date",
+            "September 4, 1981"
+        ],
+        [
+            "Destiny\\'s Child",
+            "Disbandment Date",
+            "June 2005"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Grammy Nominations Rank",
+            "most nominated woman"
+        ],
+        [
+            "Dangerously in Love",
+            "Grammy Awards",
+            "five"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Starring Role",
+            "Obsessed (2009)"
+        ],
+        [
+            "Destiny\\'s Child",
+            "Lead Singer",
+            "Beyonc\u00e9 Giselle Knowles-Carter"
+        ],
+        [
+            "Destiny\\'s Child",
+            "Manager",
+            "Mathew Knowles"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Forbes Most Powerful Female Musician",
+            "most powerful female musician of 2015"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Career Duration",
+            "19 years"
+        ],
+        [
+            "I Am... Sasha Fierce",
+            "Song of the Year",
+            "Single Ladies (Put a Ring on It)"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Time 100 Most Influential",
+            "100 most influential people in the world in 2013 and 2014"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Fifth Solo Album",
+            "Beyonc\u00e9 (2013)"
+        ],
+        [
+            "Beyonc\u00e9",
+            "Spouse",
+            "Jay Z"
+        ],
+        [
+            "Beyonc\u00e9 Giselle Knowles-Carter",
+            "Birthplace",
+            "Houston, Texas"
+        ]
+    ]
+}

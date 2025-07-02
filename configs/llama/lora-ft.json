@@ -1,0 +1,15 @@
+{
+    "llm": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 2048, 
+        "enable_lora": true,
+        "max_lora_rank": 32
+    },
+    "base_model": "meta-llama/Llama-3.1-8B-Instruct",
+    "sampling": {
+        "temperature": 0.0,
+        "top_p": 0.9,
+        "max_tokens": 2048,
+        "seed": 42
+    }
+}

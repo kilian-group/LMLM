@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lmlm"
+version = "0.1.0"
+authors = [
+    { name = "Linxi Zhao" },
+]
+description = "Large Memory Language Models: Separating Knowledge from Language"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    # Core
+    "torch==2.4.0",
+    "torchvision==0.19.0",
+    "torchaudio==2.4.0",
+    "numpy",
+
+    # Language modeling
+    "transformers==4.49.0",
+    "tokenizers",
+    "sentence-transformers",
+    "accelerate",
+    "trl",
+    "peft",
+    "datasets",
+
+    # Evaluation & metrics
+    "faiss-cpu",
+    "nltk",
+    "tqdm",
+    "matplotlib",
+    "psutil",
+    "pyyaml",
+    "vllm",
+    # Logging & experiment tracking
+    "wandb",
+
+    # pip-only packages
+    "openai==1.93.0",
+    "lighteval==0.6.2",
+    "marisa-trie==1.2.1"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["lmlm*"]

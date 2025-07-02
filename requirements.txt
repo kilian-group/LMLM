@@ -1,0 +1,32 @@
+# Core
+torch==2.4.0
+torchvision==0.19.0
+torchaudio==2.4.0
+numpy
+
+# Language modeling
+transformers==4.49.0
+tokenizers
+sentence-transformers
+accelerate
+trl
+peft
+datasets
+
+# Evaluation & metrics
+faiss-cpu  # or faiss if you run into installation issues on some platforms
+nltk
+tqdm
+matplotlib
+psutil
+pyyaml
+
+# Logging & experiment tracking
+wandb
+
+# pip-only packages
+openai==1.93.0
+lighteval==0.6.2
+marisa-trie==1.2.1
+factscore
+spacy

@@ -1,0 +1,267 @@
+{
+  "examples": [
+    {
+      "annotated_text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birth Date') -> September 4, 1981] September 4, 1981) is an [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Nationality') -> American] American [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Occupation') -> singer, songwriter, record producer, actress] singer, songwriter, record producer and actress. Born and raised in [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birthplace') -> Houston, Texas] Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Rise To Fame Period') -> late 1990s] late 1990s as [dblookup('Destiny\\'s Child', 'Lead Singer') -> Beyonc\u00e9 Giselle Knowles-Carter] lead singer of [dblookup('Destiny\\'s Child', 'Genre') -> R&B] R&B girl group Destiny's Child. Managed by her father, [dblookup('Mathew Knowles', 'Relationship to Beyonc\u00e9') -> Father] Mathew Knowles, the group became one of the [dblookup('Destiny\\'s Child', 'Commercial Success') -> world's best-selling girl groups of all time] world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'First Solo Album') -> Dangerously in Love (2003)] Dangerously in Love (2003), which established her as a solo artist worldwide, earned [dblookup('Dangerously in Love', 'Awards') -> five Grammy Awards] five Grammy Awards and featured the [dblookup('Dangerously in Love', 'Hit Singles') -> Billboard Hot 100 number-one singles \"Crazy in Love\", \"Baby Boy\"] Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born September 4, 1981) is an American singer, songwriter, record producer and actress. Born and raised in Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as lead singer of R&B girl-group Destiny's Child. Managed by her father, Mathew Knowles, the group became one of the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, Dangerously in Love (2003), which established her as a solo artist worldwide, earned five Grammy Awards and featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "model_id": "gpt-4o",
+      "prompt_id": "gpt4o-v7.1",
+      "original_dataset": "squad",
+      "original_dataset_ids": [
+        "56be85543aeaaa14008c9063",
+        "56be85543aeaaa14008c9065",
+        "56be85543aeaaa14008c9066",
+        "56bf6b0f3aeaaa14008c9601",
+        "56bf6b0f3aeaaa14008c9602",
+        "56bf6b0f3aeaaa14008c9603",
+        "56bf6b0f3aeaaa14008c9604",
+        "56bf6b0f3aeaaa14008c9605",
+        "56d43c5f2ccc5a1400d830a9",
+        "56d43c5f2ccc5a1400d830aa",
+        "56d43c5f2ccc5a1400d830ab",
+        "56d43c5f2ccc5a1400d830ac",
+        "56d43c5f2ccc5a1400d830ad",
+        "56d43ce42ccc5a1400d830b4",
+        "56d43ce42ccc5a1400d830b5"
+      ],
+      "processing_timestamp": "2025-06-30T16:26:50.649895"
+    },
+    {
+      "annotated_text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birth Date') -> September 4, 1981] September 4, 1981) is an [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Nationality') -> American] American singer, songwriter, record producer, and actress. Born and raised in [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birthplace') -> Houston, Texas] Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as lead singer of [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Lead Singer Of') -> Destiny's Child] R&B girl-group Destiny's Child. Managed by her [dblookup('Destiny\\'s Child', 'Manager') -> Mathew Knowles] father, Mathew Knowles, the group became [dblookup('Destiny\\'s Child', 'Record') -> one of the world's best-selling girl groups of all time] one of the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Debut Album') -> Dangerously in Love (2003)] Dangerously in Love (2003), which [dblookup('Dangerously in Love', 'Grammy Awards Won') -> five] earned five Grammy Awards and featured the [dblookup('Dangerously in Love', 'Billboard Hot 100 Number-One Singles') -> \"Crazy in Love\", \"Baby Boy\"] Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born September 4, 1981) is an American singer, songwriter, record producer and actress. Born and raised in Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as lead singer of R&B girl-group Destiny's Child. Managed by her father, Mathew Knowles, the group became one of the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, Dangerously in Love (2003), which established her as a solo artist worldwide, earned five Grammy Awards and featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "model_id": "gpt-4o",
+      "prompt_id": "gpt4o-v7.1",
+      "original_dataset": "squad",
+      "original_dataset_ids": [
+        "56be85543aeaaa14008c9063",
+        "56be85543aeaaa14008c9065",
+        "56be85543aeaaa14008c9066",
+        "56bf6b0f3aeaaa14008c9601",
+        "56bf6b0f3aeaaa14008c9602",
+        "56bf6b0f3aeaaa14008c9603",
+        "56bf6b0f3aeaaa14008c9604",
+        "56bf6b0f3aeaaa14008c9605",
+        "56d43c5f2ccc5a1400d830a9",
+        "56d43c5f2ccc5a1400d830aa",
+        "56d43c5f2ccc5a1400d830ab",
+        "56d43c5f2ccc5a1400d830ac",
+        "56d43c5f2ccc5a1400d830ad",
+        "56d43ce42ccc5a1400d830b4",
+        "56d43ce42ccc5a1400d830b5"
+      ],
+      "processing_timestamp": "2025-06-30T16:26:50.649923"
+    },
+    {
+      "annotated_text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter ([dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'IPA Pronunciation') -> /bi\u02d0\u02c8j\u0252nse\u026a/] /bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birth Date') -> September 4, 1981] September 4, 1981) is an [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Nationality') -> American] American [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Occupation') -> singer, songwriter, record producer, actress] singer, songwriter, record producer and actress. Born and raised in [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birthplace') -> Houston, Texas] Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as lead singer of [dblookup('Destiny\\'s Child', 'Genre') -> R&B] R&B girl-group [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Group') -> Destiny's Child] Destiny's Child. Managed by her father, [dblookup('Mathew Knowles', 'Relationship with Beyonc\u00e9') -> Father] Mathew Knowles, the group became one of [dblookup('Destiny\\'s Child', 'World Ranking') -> one of the best-selling girl groups of all time] the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Debut Album') -> Dangerously in Love] Dangerously in Love (2003), which established her as a solo artist worldwide, earned [dblookup('Dangerously in Love', 'Grammy Awards Won') -> five] five Grammy Awards and featured the Billboard Hot 100 number-one singles [dblookup('Dangerously in Love', 'Hit Singles') -> \"Crazy in Love\", \"Baby Boy\"] \"Crazy in Love\" and \"Baby Boy\".",
+      "text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born September 4, 1981) is an American singer, songwriter, record producer and actress. Born and raised in Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as lead singer of R&B girl-group Destiny's Child. Managed by her father, Mathew Knowles, the group became one of the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, Dangerously in Love (2003), which established her as a solo artist worldwide, earned five Grammy Awards and featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "model_id": "gpt-4o",
+      "prompt_id": "gpt4o-v7.1",
+      "original_dataset": "squad",
+      "original_dataset_ids": [
+        "56be85543aeaaa14008c9063",
+        "56be85543aeaaa14008c9065",
+        "56be85543aeaaa14008c9066",
+        "56bf6b0f3aeaaa14008c9601",
+        "56bf6b0f3aeaaa14008c9602",
+        "56bf6b0f3aeaaa14008c9603",
+        "56bf6b0f3aeaaa14008c9604",
+        "56bf6b0f3aeaaa14008c9605",
+        "56d43c5f2ccc5a1400d830a9",
+        "56d43c5f2ccc5a1400d830aa",
+        "56d43c5f2ccc5a1400d830ab",
+        "56d43c5f2ccc5a1400d830ac",
+        "56d43c5f2ccc5a1400d830ad",
+        "56d43ce42ccc5a1400d830b4",
+        "56d43ce42ccc5a1400d830b5"
+      ],
+      "processing_timestamp": "2025-06-30T16:26:50.649934"
+    },
+    {
+      "annotated_text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birth Date') -> September 4, 1981] September 4, 1981) is an [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Nationality') -> American] American [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Occupation') -> singer, songwriter, record producer, actress] singer, songwriter, record producer, and actress. Born and raised in [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birthplace') -> Houston, Texas] Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as [dblookup('Destiny's Child', 'Lead Singer') -> Beyonc\u00e9 Giselle Knowles-Carter] lead singer of R&B girl-group Destiny's Child. Managed by [dblookup('Destiny's Child', 'Manager') -> Mathew Knowles] her father, Mathew Knowles, the group became [dblookup('Destiny's Child', 'Sales Achievement') -> one of the world's best-selling girl groups of all time] one of the world's best-selling girl groups of all time. Their hiatus saw the release of [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Debut Album') -> Dangerously in Love] Beyonc\u00e9's debut album, Dangerously in Love (2003), which [dblookup('Dangerously in Love', 'Critical Achievement') -> established Beyonc\u00e9 as a solo artist worldwide] established her as a solo artist worldwide, [dblookup('Dangerously in Love', 'Grammy Awards Earned') -> 5] earned five Grammy Awards and featured the [dblookup('Dangerously in Love', 'Billboard Hot 100 Number-One Singles') -> Crazy in Love, Baby Boy] Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born September 4, 1981) is an American singer, songwriter, record producer and actress. Born and raised in Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as lead singer of R&B girl-group Destiny's Child. Managed by her father, Mathew Knowles, the group became one of the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, Dangerously in Love (2003), which established her as a solo artist worldwide, earned five Grammy Awards and featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "model_id": "gpt-4o",
+      "prompt_id": "gpt4o-v7.1",
+      "original_dataset": "squad",
+      "original_dataset_ids": [
+        "56be85543aeaaa14008c9063",
+        "56be85543aeaaa14008c9065",
+        "56be85543aeaaa14008c9066",
+        "56bf6b0f3aeaaa14008c9601",
+        "56bf6b0f3aeaaa14008c9602",
+        "56bf6b0f3aeaaa14008c9603",
+        "56bf6b0f3aeaaa14008c9604",
+        "56bf6b0f3aeaaa14008c9605",
+        "56d43c5f2ccc5a1400d830a9",
+        "56d43c5f2ccc5a1400d830aa",
+        "56d43c5f2ccc5a1400d830ab",
+        "56d43c5f2ccc5a1400d830ac",
+        "56d43c5f2ccc5a1400d830ad",
+        "56d43ce42ccc5a1400d830b4",
+        "56d43ce42ccc5a1400d830b5"
+      ],
+      "processing_timestamp": "2025-06-30T16:26:50.649943"
+    },
+    {
+      "annotated_text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Phonetic Pronunciation') -> /bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say] (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birth Date') -> September 4, 1981] September 4, 1981) is an [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Nationality') -> American] American [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Occupation') -> singer, songwriter, record producer, actress] singer, songwriter, record producer, and actress. Born and raised in [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birthplace') -> Houston, Texas] Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Rise to Fame Period') -> late 1990s] late 1990s as [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Role in Destiny\\'s Child') -> lead singer] lead singer of [dblookup('Destiny\\'s Child', 'Music Genre') -> R&B] R&B girl-group Destiny's Child. Managed by her [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Manager during Destiny\\'s Child') -> Mathew Knowles] father, Mathew Knowles, the group became [dblookup('Destiny\\'s Child', 'Sales Status') -> one of the world\\'s best-selling girl groups of all time] one of the world's best-selling girl groups of all time. Their hiatus saw the release of [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Debut Solo Album') -> Dangerously in Love] Beyonc\u00e9's debut album, Dangerously in Love (2003), which [dblookup('Dangerously in Love', 'Impact on Career') -> established her as a solo artist worldwide] established her as a solo artist worldwide, [dblookup('Dangerously in Love', 'Grammy Awards Won') -> five] earned five Grammy Awards and [dblookup('Dangerously in Love', 'Billboard Hot 100 Number-One Singles') -> Crazy in Love, Baby Boy] featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born September 4, 1981) is an American singer, songwriter, record producer and actress. Born and raised in Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as lead singer of R&B girl-group Destiny's Child. Managed by her father, Mathew Knowles, the group became one of the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, Dangerously in Love (2003), which established her as a solo artist worldwide, earned five Grammy Awards and featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "model_id": "gpt-4o",
+      "prompt_id": "gpt4o-v7.1",
+      "original_dataset": "squad",
+      "original_dataset_ids": [
+        "56be85543aeaaa14008c9063",
+        "56be85543aeaaa14008c9065",
+        "56be85543aeaaa14008c9066",
+        "56bf6b0f3aeaaa14008c9601",
+        "56bf6b0f3aeaaa14008c9602",
+        "56bf6b0f3aeaaa14008c9603",
+        "56bf6b0f3aeaaa14008c9604",
+        "56bf6b0f3aeaaa14008c9605",
+        "56d43c5f2ccc5a1400d830a9",
+        "56d43c5f2ccc5a1400d830aa",
+        "56d43c5f2ccc5a1400d830ab",
+        "56d43c5f2ccc5a1400d830ac",
+        "56d43c5f2ccc5a1400d830ad",
+        "56d43ce42ccc5a1400d830b4",
+        "56d43ce42ccc5a1400d830b5"
+      ],
+      "processing_timestamp": "2025-06-30T16:26:50.649951"
+    },
+    {
+      "annotated_text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) ([dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birth Date') -> September 4, 1981] born September 4, 1981) is an [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Nationality') -> American] American [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Occupation') -> singer, songwriter, record producer, actress] singer, songwriter, record producer, and actress. Born and raised in [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birth Place') -> Houston, Texas] Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Rise to Fame Era') -> late 1990s] late 1990s as lead singer of [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Affiliated Group') -> Destiny's Child] R&B girl-group Destiny's Child. Managed by her father, [dblookup('Mathew Knowles', 'Relationship to Beyonc\u00e9 Giselle Knowles-Carter') -> Father] Mathew Knowles, the group became one of the [dblookup('Destiny\\'s Child', 'Sales Achievement') -> world's best-selling girl groups of all time] world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, [dblookup('Dangerously in Love', 'Release Year') -> 2003] Dangerously in Love (2003), which established her as a solo artist worldwide, [dblookup('Dangerously in Love', 'Awards') -> five Grammy Awards] earned five Grammy Awards and featured the [dblookup('Dangerously in Love', 'Hit Singles') -> \"Crazy in Love\", \"Baby Boy\"] Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born September 4, 1981) is an American singer, songwriter, record producer and actress. Born and raised in Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as lead singer of R&B girl-group Destiny's Child. Managed by her father, Mathew Knowles, the group became one of the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, Dangerously in Love (2003), which established her as a solo artist worldwide, earned five Grammy Awards and featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "model_id": "gpt-4o",
+      "prompt_id": "gpt4o-v7.1",
+      "original_dataset": "squad",
+      "original_dataset_ids": [
+        "56be85543aeaaa14008c9063",
+        "56be85543aeaaa14008c9065",
+        "56be85543aeaaa14008c9066",
+        "56bf6b0f3aeaaa14008c9601",
+        "56bf6b0f3aeaaa14008c9602",
+        "56bf6b0f3aeaaa14008c9603",
+        "56bf6b0f3aeaaa14008c9604",
+        "56bf6b0f3aeaaa14008c9605",
+        "56d43c5f2ccc5a1400d830a9",
+        "56d43c5f2ccc5a1400d830aa",
+        "56d43c5f2ccc5a1400d830ab",
+        "56d43c5f2ccc5a1400d830ac",
+        "56d43c5f2ccc5a1400d830ad",
+        "56d43ce42ccc5a1400d830b4",
+        "56d43ce42ccc5a1400d830b5"
+      ],
+      "processing_timestamp": "2025-06-30T16:27:16.944992"
+    },
+    {
+      "annotated_text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birth Date') -> September 4, 1981] September 4, 1981) is an [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Nationality') -> American] American [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Occupation') -> singer, songwriter, record producer, actress] singer, songwriter, record producer, and actress. Born and raised in [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birthplace') -> Houston, Texas] Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Role in Destiny\\'s Child') -> lead singer] lead singer of [dblookup('Destiny\\'s Child', 'Music Genre') -> R&B] R&B girl-group [dblookup('Destiny\\'s Child', 'Managed By') -> Mathew Knowles] Destiny's Child. Managed by her father, Mathew Knowles, the group became one of [dblookup('Destiny\\'s Child', 'Acclaimed Status') -> world's best-selling girl groups of all time] the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Debut Album') -> Dangerously in Love] debut album, Dangerously in Love (2003), which established her as a solo artist worldwide, earned [dblookup('Dangerously in Love', 'Awards Won') -> five Grammy Awards] five Grammy Awards, and featured the [dblookup('Dangerously in Love', 'Hit Singles') -> \"Crazy in Love\", \"Baby Boy\"] Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born September 4, 1981) is an American singer, songwriter, record producer and actress. Born and raised in Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as lead singer of R&B girl-group Destiny's Child. Managed by her father, Mathew Knowles, the group became one of the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, Dangerously in Love (2003), which established her as a solo artist worldwide, earned five Grammy Awards and featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "model_id": "gpt-4o",
+      "prompt_id": "gpt4o-v7.1",
+      "original_dataset": "squad",
+      "original_dataset_ids": [
+        "56be85543aeaaa14008c9063",
+        "56be85543aeaaa14008c9065",
+        "56be85543aeaaa14008c9066",
+        "56bf6b0f3aeaaa14008c9601",
+        "56bf6b0f3aeaaa14008c9602",
+        "56bf6b0f3aeaaa14008c9603",
+        "56bf6b0f3aeaaa14008c9604",
+        "56bf6b0f3aeaaa14008c9605",
+        "56d43c5f2ccc5a1400d830a9",
+        "56d43c5f2ccc5a1400d830aa",
+        "56d43c5f2ccc5a1400d830ab",
+        "56d43c5f2ccc5a1400d830ac",
+        "56d43c5f2ccc5a1400d830ad",
+        "56d43ce42ccc5a1400d830b4",
+        "56d43ce42ccc5a1400d830b5"
+      ],
+      "processing_timestamp": "2025-06-30T16:27:16.945019"
+    },
+    {
+      "annotated_text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) ([dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birth Date') -> September 4, 1981] born September 4, 1981) is an [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Nationality') -> American] American [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Occupation') -> singer, songwriter, record producer, actress] singer, songwriter, record producer and actress. Born and raised in [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birthplace') -> Houston, Texas] Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as [dblookup('Destiny\\'s Child', 'Lead Singer') -> Beyonc\u00e9 Giselle Knowles-Carter] lead singer of R&B girl-group Destiny's Child. Managed by her [dblookup('Destiny\\'s Child', 'Manager') -> Mathew Knowles] father, Mathew Knowles, the group became [dblookup('Destiny\\'s Child', 'Achievement') -> one of the world's best-selling girl groups of all time] one of the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, [dblookup('Dangerously in Love', 'Release Year') -> 2003] Dangerously in Love (2003), which established her as a [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Solo Artist Debut Achievements') -> Grammy Awards: 5, Billboard Hot 100 No.1 Singles: \"Crazy in Love\", \"Baby Boy\"] solo artist worldwide, earned five Grammy Awards and featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born September 4, 1981) is an American singer, songwriter, record producer and actress. Born and raised in Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as lead singer of R&B girl-group Destiny's Child. Managed by her father, Mathew Knowles, the group became one of the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, Dangerously in Love (2003), which established her as a solo artist worldwide, earned five Grammy Awards and featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "model_id": "gpt-4o",
+      "prompt_id": "gpt4o-v7.1",
+      "original_dataset": "squad",
+      "original_dataset_ids": [
+        "56be85543aeaaa14008c9063",
+        "56be85543aeaaa14008c9065",
+        "56be85543aeaaa14008c9066",
+        "56bf6b0f3aeaaa14008c9601",
+        "56bf6b0f3aeaaa14008c9602",
+        "56bf6b0f3aeaaa14008c9603",
+        "56bf6b0f3aeaaa14008c9604",
+        "56bf6b0f3aeaaa14008c9605",
+        "56d43c5f2ccc5a1400d830a9",
+        "56d43c5f2ccc5a1400d830aa",
+        "56d43c5f2ccc5a1400d830ab",
+        "56d43c5f2ccc5a1400d830ac",
+        "56d43c5f2ccc5a1400d830ad",
+        "56d43ce42ccc5a1400d830b4",
+        "56d43ce42ccc5a1400d830b5"
+      ],
+      "processing_timestamp": "2025-06-30T16:27:16.945028"
+    },
+    {
+      "annotated_text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birth Date') -> September 4, 1981] September 4, 1981) is an [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Nationality') -> American] American [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Occupation') -> singer, songwriter, record producer, actress] singer, songwriter, record producer, and actress. Born and raised in [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birthplace') -> Houston, Texas] Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Rise to Fame Decade') -> 1990s] 1990s as lead singer of [dblookup('Destiny\\'s Child', 'Music Genre') -> R&B] R&B girl-group [dblookup('Destiny\\'s Child', 'Lead Singer') -> Beyonc\u00e9 Giselle Knowles-Carter] Destiny's Child. Managed by her father, [dblookup('Destiny\\'s Child', 'Manager') -> Mathew Knowles] Mathew Knowles, the group became one of [dblookup('Destiny\\'s Child', 'Global Status') -> world's best-selling girl groups] the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Debut Solo Album') -> Dangerously in Love] Dangerously in Love (2003), which established her as a solo artist worldwide, earned [dblookup('Dangerously in Love', 'Grammy Awards Won') -> five] five Grammy Awards and featured the [dblookup('Dangerously in Love', 'Billboard Hot 100 Number-One Singles') -> Crazy in Love, Baby Boy] Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born September 4, 1981) is an American singer, songwriter, record producer and actress. Born and raised in Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as lead singer of R&B girl-group Destiny's Child. Managed by her father, Mathew Knowles, the group became one of the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, Dangerously in Love (2003), which established her as a solo artist worldwide, earned five Grammy Awards and featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "model_id": "gpt-4o",
+      "prompt_id": "gpt4o-v7.1",
+      "original_dataset": "squad",
+      "original_dataset_ids": [
+        "56be85543aeaaa14008c9063",
+        "56be85543aeaaa14008c9065",
+        "56be85543aeaaa14008c9066",
+        "56bf6b0f3aeaaa14008c9601",
+        "56bf6b0f3aeaaa14008c9602",
+        "56bf6b0f3aeaaa14008c9603",
+        "56bf6b0f3aeaaa14008c9604",
+        "56bf6b0f3aeaaa14008c9605",
+        "56d43c5f2ccc5a1400d830a9",
+        "56d43c5f2ccc5a1400d830aa",
+        "56d43c5f2ccc5a1400d830ab",
+        "56d43c5f2ccc5a1400d830ac",
+        "56d43c5f2ccc5a1400d830ad",
+        "56d43ce42ccc5a1400d830b4",
+        "56d43ce42ccc5a1400d830b5"
+      ],
+      "processing_timestamp": "2025-06-30T16:27:16.945037"
+    },
+    {
+      "annotated_text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/[dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Pronunciation') -> bi\u02d0\u02c8j\u0252nse\u026a/] bee-YON-say) (born [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birth Date') -> September 4, 1981] September 4, 1981) is an [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Nationality') -> American] American [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Occupation') -> singer, songwriter, record producer, actress] singer, songwriter, record producer, and actress. Born and raised in [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Birthplace') -> Houston, Texas] Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the [dblookup('Beyonc\u00e9 Giselle Knowles-Carter', 'Rise To Fame Period') -> late 1990s] late 1990s as [dblookup('Destiny's Child', 'Lead Singer') -> Beyonc\u00e9 Giselle Knowles-Carter] lead singer of R&B girl-group Destiny's Child. Managed by her father, [dblookup('Mathew Knowles', 'Role') -> Manager of Destiny's Child] Mathew Knowles, the group became one of [dblookup('Destiny's Child', 'Achievements') -> world's best-selling girl groups of all time] the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, [dblookup('Dangerously in Love', 'Artist') -> Beyonc\u00e9 Giselle Knowles-Carter] Dangerously in Love (2003), which [dblookup('Dangerously in Love', 'Achievements') -> earned five Grammy Awards, featured Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\"] established her as a solo artist worldwide, earned five Grammy Awards, and featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "text": "Beyonc\u00e9: Beyonc\u00e9 Giselle Knowles-Carter (/bi\u02d0\u02c8j\u0252nse\u026a/ bee-YON-say) (born September 4, 1981) is an American singer, songwriter, record producer and actress. Born and raised in Houston, Texas, she performed in various singing and dancing competitions as a child, and rose to fame in the late 1990s as lead singer of R&B girl-group Destiny's Child. Managed by her father, Mathew Knowles, the group became one of the world's best-selling girl groups of all time. Their hiatus saw the release of Beyonc\u00e9's debut album, Dangerously in Love (2003), which established her as a solo artist worldwide, earned five Grammy Awards and featured the Billboard Hot 100 number-one singles \"Crazy in Love\" and \"Baby Boy\".",
+      "model_id": "gpt-4o",
+      "prompt_id": "gpt4o-v7.1",
+      "original_dataset": "squad",
+      "original_dataset_ids": [
+        "56be85543aeaaa14008c9063",
+        "56be85543aeaaa14008c9065",
+        "56be85543aeaaa14008c9066",
+        "56bf6b0f3aeaaa14008c9601",
+        "56bf6b0f3aeaaa14008c9602",
+        "56bf6b0f3aeaaa14008c9603",
+        "56bf6b0f3aeaaa14008c9604",
+        "56bf6b0f3aeaaa14008c9605",
+        "56d43c5f2ccc5a1400d830a9",
+        "56d43c5f2ccc5a1400d830aa",
+        "56d43c5f2ccc5a1400d830ab",
+        "56d43c5f2ccc5a1400d830ac",
+        "56d43c5f2ccc5a1400d830ad",
+        "56d43ce42ccc5a1400d830b4",
+        "56d43ce42ccc5a1400d830b5"
+      ],
+      "processing_timestamp": "2025-06-30T16:27:16.945045"
+    }
+  ],
+  "metadata": {
+    "creation_date": "2025-06-30T16:25:59.030173",
+    "last_modified": "2025-06-30T16:27:16.945049",
+    "source_datasets": [
+      "squad"
+    ],
+    "models_used": [
+      "gpt-4o"
+    ],
+    "prompts_used": [
+      "gpt4o-v7.1"
+    ]
+  }
+}

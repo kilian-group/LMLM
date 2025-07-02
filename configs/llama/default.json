@@ -1,0 +1,13 @@
+{
+    "llm": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 2048, 
+        "gpu_memory_utilization": 0.95
+    },
+    "sampling": {
+        "temperature": 0.0,
+        "top_p": 0.9,
+        "max_tokens": 2048,
+        "seed": 42
+    }
+}
