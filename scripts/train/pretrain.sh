@@ -19,7 +19,7 @@ export NCCL_DEBUG=INFO
 export TORCH_USE_CUDA_DSA=1
 
 # Set arguments
-NUM_GPUs=1
+NUM_GPUs=2
 
 ADD_DBLOOKUP_TOKENS=True
 MODEL_NAME_OR_PATH="tiny-llama2-176M"

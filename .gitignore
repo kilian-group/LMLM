@@ -170,8 +170,8 @@ wandb/
 
 # Don't Push Data
 # data/*
-data/database/*
-database/*
+# data/database/*
+data/database_cache/*
 
 # Don't Push Notebooks
 notebooks/*

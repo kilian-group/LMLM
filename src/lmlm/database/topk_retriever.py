@@ -17,7 +17,7 @@ class TopkRetriever:
                  top_k: int = 5,
                  threshold: float = 0.6,
                  batch_size: int = 2048,
-                 cache_dir: Optional[str] = "./database_cache",
+                 cache_dir: Optional[str] = "./data/database_cache",
                  database_name: str = "default_db",
                  verbose: bool = True):
         """
@@ -137,7 +137,7 @@ if __name__ == "__main__":
     retriever = TopkRetriever(
         database=triplets,
         model_name="sentence-transformers/all-MiniLM-L6-v2",
-        cache_dir="./database_cache",
+        cache_dir="./data/database_cache",
         database_name="dwiki_bio17k-annotator",
         top_k=5,
         verbose=True
