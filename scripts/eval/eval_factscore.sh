@@ -15,7 +15,7 @@ CHECKPOINTS=(
 ENABLE_DBLOOKUP="--enable_dblookup"
 
 OUTPUT_DIR=./output/eval/eval_factscore/
-DATABASE_PATH=./data/database/dwiki_bio17k-annotator_database.json
+DATABASE_PATH=./data/database/dwiki_bio17k-annotator_database.json  # Will load cached index if available, otherwise download from Hugging Face, or build and cache it locally
 DATASET=factscore
 NUM_SAMPLES=100
 

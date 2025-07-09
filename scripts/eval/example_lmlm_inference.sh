@@ -5,7 +5,7 @@ models=(
     "kilian-group/Standard-llama2-382M"
 )
 
-DATABASE_PATH=./data/database/dwiki_bio17k-annotator_database.json
+DATABASE_PATH=./data/database/dwiki_bio17k-annotator_database.json  # Will load cached index if available, otherwise download from Hugging Face, or build and cache it locally
 OUTPUT_DIR=./output/eval/examples/
 
 for model in "${models[@]}"; do

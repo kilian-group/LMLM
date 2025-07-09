@@ -228,6 +228,14 @@ bash scripts/train/pretrain.sh
 We use cosine similarity over a sentence transformers (`all-MiniLM-L6-v2`) embeddings
 with a threshold of 0.6 for fuzzy matching. See: `lmlm/database/topk_retriever.py` for implementation details.
 
+> Note: Embedding the entire database can be slow.
+> To speed things up, we provide a precomputed FAISS index + mapping cache on Hugging Face Hub.
+> The retriever will:
+>
+> 1. Load from local cache if it exists
+> 2. Otherwise, attempt to download from Hugging  (`kilian-group/LMLM-database-cache`)
+> 3. If both fail, it will build the index from scratch and save it to local cache
+
 
 ### Inference with DBLookup
 

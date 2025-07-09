@@ -205,13 +205,9 @@ class TrexEvaluationManager:
         
         # BUG: truncate the input sentence to 1024 tokens
         truncated_input_sentence = self.tokenizer.decode(self.tokenizer.encode(input_sentence)[-args.max_seq_length:])
-        if truncated_input_sentence != input_sentence:
-            print(f"truncated_input_sentence: {truncated_input_sentence}")
-            print(f"input_sentence: {input_sentence}")
         
         output_text = self.generate_response(truncated_input_sentence)
         example["output_text"] = input_sentence + output_text
-        print(f"example['output_text']: {example['output_text']}")
         return example
 
     def exact_match(self, eval_dataset):
@@ -305,19 +301,6 @@ class TrexEvaluationManager:
         masked_predicted_tokens = predicted_tokens[shift_mask.bool()]
         masked_labels = shift_labels[shift_mask.bool()]
 
-        # sanity check
-        # decoded_predicted_tokens = self.tokenizer.batch_decode(masked_predicted_tokens)
-        # decoded_labels = self.tokenizer.batch_decode(masked_labels)
-        # print(f"decoded_predicted_tokens: {decoded_predicted_tokens}")
-        # print(f"decoded_labels: {decoded_labels}")
-        # import pdb; pdb.set_trace()
-
-        # # sanity check
-        # # only keep the first mask token
-        # masked_predicted_tokens = masked_predicted_tokens[:1]
-        # masked_labels = masked_labels[:1]
-        ##
-
         correct_predictions = (masked_predicted_tokens == masked_labels).sum().item()
         total_predictions = masked_labels.size(0)
         precision_at_1 = correct_predictions / total_predictions if total_predictions > 0 else 0.0
@@ -386,7 +369,7 @@ class TrexEvaluationManager:
     
     def generate_and_save(self, is_save=False):
         
-        if os.path.exists(self.save_path) and os.path.getsize(self.save_path) > 0:
+        if is_save and os.path.exists(self.save_path) and os.path.getsize(self.save_path) > 0:
             # load and check
             eval_dataset = load_dataset("json", data_files=self.save_path, split="train")
             print(f"Loaded processed dataset from {self.save_path}")
@@ -410,13 +393,12 @@ class TrexEvaluationManager:
             eval_dataset = eval_dataset.map(self.generate_open_ended, batched=False)
             print(f"eval_dataset [0]: {eval_dataset[0]}")
             
-        if is_save:
-            os.makedirs(os.path.dirname(self.save_path), exist_ok=True)
+        os.makedirs(os.path.dirname(self.save_path), exist_ok=True)
 
-            with open(self.save_path, "w") as f:
-                for example in eval_dataset:
-                    f.write(json.dumps(example) + "\n")
-            print(f"Saved processed dataset to {self.save_path}")
+        with open(self.save_path, "w") as f:
+            for example in eval_dataset:
+                f.write(json.dumps(example) + "\n")
+        print(f"Saved processed dataset to {self.save_path}")
 
         return eval_dataset
 
@@ -440,6 +422,7 @@ def load_args():
     parser.add_argument("--threshold", type=float, default=0, help="Threshold for top-k retrieval.")
     parser.add_argument("--num_samples", type=int, default=100000, help="Number of samples to evaluate.") 
     parser.add_argument("--top_k", type=int, default=0, help="Number of top-k entities to retrieve for RAG.")
+    parser.add_argument("--is_save", action="store_true", help="Save the processed dataset to a file. If available, load the processed dataset and evaluate.")
     return parser.parse_args()
 
 
@@ -473,12 +456,12 @@ if __name__ == "__main__":
         raise NotImplementedError("RAG is not implemented for LMLM.")
 
     metrics = {}
-    eval_dataset = eval_manager.generate_and_save(is_save=True)
+    eval_dataset = eval_manager.generate_and_save(is_save=args.is_save)
 
     metrics_words = eval_manager.exact_match(eval_dataset)
     metrics.update(metrics_words)
 
-    metrics_tokens = eval_manager.evaluate(eval_dataset=eval_dataset, batch_size=args.per_device_eval_batch_size, is_save=True)
+    metrics_tokens = eval_manager.evaluate(eval_dataset=eval_dataset, batch_size=args.per_device_eval_batch_size, is_save=args.is_save)
     metrics.update(metrics_tokens)
 
     results_dict = {

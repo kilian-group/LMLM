@@ -92,7 +92,9 @@ def main(script_args, training_args, model_args, pretrain_args):
 
     logger.info("Preparing training and evaluation datasets...")
     train_dataset, eval_dataset = prepare_pretrain_data(
-        script_args,
+        script_args.dataset_name,
+        getattr(script_args, 'dataset_config', None),
+        getattr(script_args, 'dataset_train_split', 'train'),
         use_special_dblookup_tokens=pretrain_args.use_special_dblookup_tokens,
         is_plain_baseline=pretrain_args.plain_baseline,
     )
