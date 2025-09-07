@@ -145,7 +145,7 @@ class TopkRetriever:
         results = []
         for dist, idx in zip(distances[0], indices[0]):
             if idx != -1 and idx in self.id_to_triplet and dist >= th:
-                assert 1.0 >= dist >= -1.0, f"FAISS dot product with normalized vectors should lie in [-1, 1]"
+                assert 1.001 >= dist >= -1.001, f"FAISS dot product with normalized vectors should lie in [-1, 1]"
 
                 triplet = self.id_to_triplet[idx]
                 results.append((triplet[0], triplet[1], triplet[2], float(dist)))

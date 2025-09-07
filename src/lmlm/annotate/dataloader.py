@@ -53,6 +53,27 @@ def prepare_dwiki_bio(split="train", subset_ids=None, **kwargs):
     return chunk_wiki_text(texts, ids)
 
 
+def prepare_wiki_eval(split="train", subset_ids=None, **kwargs):
+    dataset = load_dataset("json", data_files=f"../LLM-Shearing/datasets/eval/wiki_eval500.json")[split]
+    texts = [ex["text"] for ex in dataset]
+    ids = [ex["id"] for ex in dataset]
+    return texts, ids
+
+
+def prepare_conflictsbench(split="train", subset_ids=None, **kwargs):
+    dataset = load_dataset("Warrieryes/CB_qa", split=split)
+    def is_wiki(row):
+        return str(row.get("default_evidence_category", "")).strip().lower() == "wikipedia" and str(row.get("semantic_conflict_evidence_category", "")).strip().lower() == "wikipedia"
+    
+    dataset = dataset.filter(is_wiki)
+    # get the first 1000 examples
+    dataset = dataset.select(range(1000))
+
+    texts = [ex["semantic_conflict_evidence"] for ex in dataset]
+    ids = [i for i in range(len(texts))]
+
+    return texts, ids
+
 def prepare_data(dataset_name: str, **kwargs) -> Tuple[List[str], List[str]]:
     dispatch = {
         "squad": prepare_squad,
@@ -60,6 +81,8 @@ def prepare_data(dataset_name: str, **kwargs) -> Tuple[List[str], List[str]]:
         "fineweb": prepare_fineweb,
         "trex11k": prepare_trex11k,
         "dwiki_bio": prepare_dwiki_bio,
+        "wiki_eval": prepare_wiki_eval,
+        "conflictsbench": prepare_conflictsbench,
     }
     if dataset_name not in dispatch:
         raise ValueError(f"Unknown dataset: {dataset_name}")

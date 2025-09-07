@@ -52,6 +52,7 @@ def run_inference_lmlm(args, question_dict, answer_dict, model_args, generation_
         print(f"Output (LMLM): {output_text}")
         print("*" * 20)
 
+    os.makedirs(args.output_dir, exist_ok=True)
     save_path = os.path.join(args.output_dir, f"examples_{args.model_name.split('/')[-1]}.json")
     with open(save_path, "w") as f:
         json.dump(outputs_dict, f, indent=4)
@@ -102,10 +103,20 @@ if __name__ == "__main__":
     # Load question and answer
     question_dict = {
         'factscore_0': 'Tell me a bio of Ko Itakura. Ko Itakura is',
+        'conflictsbench_0': 'Which person or organization did Wenqing He work for?',
+        'conflictsbench_1': 'What is the name of the person who is the leader of the Communist Party of China?',
+        'conflictsbench_2': 'Which award did Martin Lambie-Nairn receive?',
+        'conflictsbench_3': 'Who replaced Shinzu in their role?',
+        'conflictsbench_4': 'Which educational institution did Fábio A L de Souza attend?',
     }
 
     answer_dict = {
         'factscore_0': "Ko Itakura is the <|db_entity|> Ko Itakura<|db_relationship|> Position<|db_return|> center-back, defensive midfielder<|db_end|> center-back and defensive midfielder for <|db_entity|> Ko Itakura<|db_relationship|> Team<|db_return|> Japan national team<|db_end|> Japan’s national team. He was born in <|db_entity|> Ko Itakura<|db_relationship|> Birthplace<|db_return|> Yokohama<|db_end|> Yokohama on <|db_entity|> Ko Itakura<|db_relationship|> Birth Date<|db_return|> January 27, 1997<|db_end|> 27th January 1997. His father is from <|db_entity|> Ko Itakura<|db_relationship|> Father’s Origin<|db_return|> Japanese<|db_end|> Japanese and his mother is from <|db_entity|> Ko Itakura<|db_relationship|> Mother’s Origin<|db_return|> Japanese<|db_end|> Japanese. When he was young, he played baseball but af- ter watching an exhibition match against a professional baseball club, he decided to become a footballer. In <|db_entity|> Ko Itakura<|db_relationship|> Joined Club Year<|db_return|> Kawasaki Frontale<|db_end|> 2013, he joined J1 League side Kawasaki Frontale. However, he could not play many matches behind Shusaku Nishikawa until <|db_entity|> Ko Itakura<|db_relationship|> First Match as Starter<|db_return|> Uruguay<|db_end|> September when he debuted at right back against Uruguay. After that, he became a regular player under man- ager <|db_entity|> Ko Itakura<|db_relationship|> Manager Under Whom Became Regular Player<|db_return|> Japan national team<|db_end|> Shinji Ono. On <|db_entity|> Ko Itakura<|db_relationship|> Debut Date<|db_return|> June 17, 2019<|db_end|> 17 June 2019, he de- buted with Japan national team against Chile during the <|db_entity|> Ko Itakura<|db_relationship|> Competition Debut<|db_return|> Uruguay<|db_end|>2019 Copa América. Career statistics. “Updated to end of 2018 season”. National team career. In August 2016, Itakura was elected to the <|db_entity|> Ko Itakura<|db_relationship|> U-23 Selection<|db_return|> Japan U-20 national team<|db_end|> Japan U-20 national team for the <|db_entity|> Japan U-20 national team<|db_relationship|> Tournament Participation<|db_return|> 2017 U-20 World Cup<|db_end|> 2017 U-20 World Cup. At this tournament, he played all 4 matches as left back of three back defense. In May 2019, he was se- lected for the <|db_entity|> Ko Itakura<|db_relationship|> Senior Squad Selection<|db_return|>",
+        'conflictsbench_0': 'None',
+        'conflictsbench_1': 'None',
+        'conflictsbench_2': 'None',
+        'conflictsbench_3': 'None',
+        'conflictsbench_4': 'None',
     }
 
     # Default args

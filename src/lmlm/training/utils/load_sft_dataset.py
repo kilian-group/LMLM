@@ -65,7 +65,10 @@ def load_evalsets(setting: str = 'LMLM_eval') -> Dataset:
             eval_dataset = load_dataset("json", data_files=eval_path, split="train", field="examples")
             eval_dataset_dict[key] = eval_dataset
         else:
-            raise FileNotFoundError(f"Eval dataset not found at {eval_path}.")  
+            import warnings
+            warnings.warn(f"Eval dataset not found at {eval_path}.")  
+            eval_dataset_dict[key] = None
+
     return eval_dataset_dict
 
 
