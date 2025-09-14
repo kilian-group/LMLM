@@ -211,6 +211,10 @@ def process_single_text(text: str) -> Dict[str, any]:
     
     return {'processed_text': text_af, 'changed': has_issues, 'lookup_delete': lookup_deleted, 'lookup_loc_changed': lookup_loc_changed}
 
+    
+def rollback_space(text: str) -> Dict[str, any]:
+    text = re.sub(r'(\[dblookup[^\]]*? -> [^\]]*?\])(?=\S)', r'\1 ', text)
+    return {'processed_text': text}
 
 def cut_single_text(text: str) -> Dict[str, any]:
     """
@@ -277,7 +281,10 @@ def process_texts_optimized(dataset, num_proc: int = None, batch_size: int = 100
         Returns:
             dict: Result from applying target_func to the text
         """
-        text = example['annotated_text']
+        if 'processed_text' in example:
+            text = example['processed_text']
+        else:
+            text = example['annotated_text']
         result = target_func(text)
         return result
     
@@ -319,6 +326,10 @@ def main(batch_size: int = 1000, num_proc: int = None):
     # Step 2: Truncate texts at late dblookups using cut_single_text
     print("Step 2: Processing with cut_single_text...")
     ds = process_texts_optimized(ds, num_proc=num_proc, batch_size=batch_size, target_func=cut_single_text)
+    
+    # Step 3: Rollback space using rollback_space
+    print("Step 3: Processing with rollback_space...")
+    ds = process_texts_optimized(ds, num_proc=num_proc, batch_size=batch_size, target_func=rollback_space)
     
     # Save the final processed dataset
     ds.save_to_disk("processed_dataset")
