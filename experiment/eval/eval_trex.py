@@ -220,13 +220,15 @@ class TrexEvaluationManager:
             
             answer = example["obj_surface"]
             prefix = example["masked_sentence"].split(MASK_TOKEN)[0].strip()
+
+            # BUG: normalize the output text again to ensure the format is correct
+            example["output_text"] = normalize_db_format(example["output_text"])
             
             if prefix not in example["output_text"]:    
                 example["output_text"] = example["output_text"].split("\n")[-1]
                 prefix = prefix.split("\n")[-1].replace(" ,", ",").strip()
                 prefix = " ".join(prefix.split()[-5:])
 
-            # TODO: not that robust
             predicted_answer = example["output_text"].split(prefix)[-1]
             predicted_answer = " ".join(predicted_answer.split()[:5])
 
@@ -442,6 +444,7 @@ if __name__ == "__main__":
             raise ValueError(f"RAG cannot be used with dblookup. Please set top_k to 0.")
     else:
         args.threshold = None
+        print(f"Database lookup is disabled. Threshold is set to None.")
 
     model_name = get_model_name(args)
     database_name = os.path.basename(args.database_path).split("_database")[0]

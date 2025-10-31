@@ -100,7 +100,7 @@ def main(script_args, training_args, model_args, pretrain_args):
     if accelerator.is_main_process:
         logger.info(f"Example training sample: {train_dataset[10][training_args.dataset_text_field]}")
         logger.info(f"Training set size: {len(train_dataset)}")
-        logger.info(f"Evaluation set size: {len(eval_dataset)}")
+        logger.info(f"Evaluation set size: {eval_dataset}")
 
     trainer = SFTTrainer(
         model=model,

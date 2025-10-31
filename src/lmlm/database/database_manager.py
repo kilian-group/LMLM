@@ -16,7 +16,8 @@ def extract_lookups(text, pattern=None):
     if pattern is None:
         pattern_lst = [
             r'\[dblookup\(([^,]+),\s*([^,]+)\)\s*->\s*(.*?)\]',
-            r"\[dblookup\('(.+?)',\s*'(.+?)'\)\s*->\s*(.+?)\]"
+            r"\[dblookup\('(.+?)',\s*'(.+?)'\)\s*->\s*(.+?)\]",
+            r"\s?<\|db_entity\|>(.+?)<\|db_relationship\|>(.+?)<\|db_return\|>(.+?)<\|db_end\|>",
         ]
 
     matches = []
@@ -26,14 +27,20 @@ def extract_lookups(text, pattern=None):
 
     return [[item.strip("'").strip('"').strip() for item in match] for match in matches]
 
-def update_atomic_knowledge(example):
+def update_atomic_knowledge(example, current_version=1):
     triplets = extract_lookups(example["annotated_text"])
     example.update({"atomic_knowledge": triplets})
     return example
 
 def extract_database(dataset):
-    if 'atomic_knowledge' not in dataset.column_names:
-        dataset = dataset.map(update_atomic_knowledge)
+    if "atomic_knowledge" not in dataset.column_names:
+        dataset = dataset.map(
+            update_atomic_knowledge,
+            batched=False,
+            fn_kwargs={"current_version": 1},
+            num_proc=1,  # optional parallelism
+            desc="Extracting atomic knowledge",
+        )
     return dataset
 
 class DatabaseLookupError(Exception):
@@ -71,7 +78,7 @@ class DatabaseManager:
             f"{len(self.database['return_values'])} return values."
         )
 
-    def init_topk_retriever(self, model_name="sentence-transformers/all-MiniLM-L6-v2", top_k=None, default_threshold=None):
+    def init_topk_retriever(self, model_name="sentence-transformers/all-MiniLM-L6-v2", top_k=None, default_threshold=0.6):
 
         if self.topk_retriever is None:
             self.topk_retriever = TopkRetriever(

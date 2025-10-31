@@ -8,7 +8,6 @@ PROMPTS_DIR = os.path.join(ROOT_DIR, "prompts")
 DATA_DIR = os.path.join(ROOT_DIR, "data")
 CONFIGS_DIR = os.path.join(ROOT_DIR, "configs")
 RESULTS_DIR = os.path.join(ROOT_DIR, "results")
-EVALSET_PATH = os.path.join(ROOT_DIR, "configs/eval/evalset_path.yaml")
 
 # Make sure the directories exist
 os.makedirs(PROMPTS_DIR, exist_ok=True)
@@ -29,3 +28,4 @@ LEGACY_DB_SEP_TOKEN = "', '"
 LEGACY_DB_RETRIEVE_TOKEN = "') -> "
 LEGACY_DB_END_TOKEN = "]"
 
+TINY_LLAMA2_TOKENIZER_PATH = "./tokenizer/tiny-llama2"

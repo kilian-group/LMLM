@@ -15,13 +15,19 @@ def load_args():
 def load_and_filter_dataset(path):
     """Load and optionally filter a dataset."""
     try:
-        if path.endswith(".json"):
+        if path.endswith(".json") or path.endswith(".jsonl"):
             dataset = load_dataset("json", data_files=path, split="train", field="examples")
         else:
             dataset = load_dataset(path, split="train", field="examples")
     except Exception as e:
-        print(f"Error loading dataset with 'examples' field: {e}")
-        dataset = load_dataset(path, split="train")
+        print(f"Error loading dataset with 'examples' field: {e}, trying without 'examples' field")
+        try:
+            if path.endswith(".json") or path.endswith(".jsonl"):
+                dataset = load_dataset("json", data_files=path, split="train")
+            else:
+                dataset = load_dataset(path, split="train")
+        except Exception as e:
+            raise Exception(f"Error loading dataset: {e}")
 
     return dataset
 

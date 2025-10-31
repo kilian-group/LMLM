@@ -187,9 +187,6 @@ output/eval/*
 
 experiment/results/*
 
-# ignore the tokenizer cache
-tokenizer/*
-
 cache/*
 
 # ignore the environment.yml

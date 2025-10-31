@@ -25,7 +25,7 @@ ADD_DBLOOKUP_TOKENS=True
 MODEL_NAME_OR_PATH="tiny-llama2-176M"
 NUM_TRAIN_EPOCHS=8
 
-DATASET_PATH=kilian-group/LMLM-dwiki6.1M
+DATASET_PATH=kilian-group/LMLM-pretrain-dwiki6.1M_cleaned
 
 OUTPUT_DIR=./checkpoints/pretrain_test/
 #

@@ -8,12 +8,14 @@ import logging
 from transformers import LlamaForCausalLM, AutoConfig
 from transformers import LogitsProcessor
 from lmlm.constants import DB_START_TOKEN, DB_SEP_TOKEN, DB_RETRIEVE_TOKEN, DB_END_TOKEN
-
+import logging, re, torch
+from transformers import AutoConfig, AutoTokenizer, GPT2LMHeadModel
+from transformers.generation.logits_process import LogitsProcessor
 
 logger = logging.getLogger(__name__)
 
 class LlamaForLMLM(LlamaForCausalLM):
-    def __init__(self, config, db_manager=None, use_special_tokens=True, threshold=None, fallback_policy="top1_anyway"):
+    def __init__(self, config, db_manager=None, use_special_tokens=True, threshold=0.6, fallback_policy="top1_anyway"):
         super().__init__(config)
         self.use_special_tokens = use_special_tokens
         self.fallback_policy = fallback_policy
@@ -26,7 +28,7 @@ class LlamaForLMLM(LlamaForCausalLM):
         self.logits_processor = None
 
     @classmethod
-    def from_pretrained_with_db(cls, model_path, db_manager=None, use_special_tokens=True, threshold=None, fallback_policy=None, **kwargs):
+    def from_pretrained_with_db(cls, model_path, db_manager=None, use_special_tokens=True, threshold=0.6, fallback_policy=None, **kwargs):
         config = AutoConfig.from_pretrained(model_path, **kwargs)
 
         model = super().from_pretrained(model_path, config=config, **kwargs)
@@ -263,6 +265,233 @@ class LlamaForLMLM(LlamaForCausalLM):
             return "unknown", False
 
 
+class GPT2ForLMLM(GPT2LMHeadModel):
+    def __init__(self, config, db_manager=None, use_special_tokens=True, threshold=0.6, fallback_policy="top1_anyway"):
+        super().__init__(config)
+        self.use_special_tokens = use_special_tokens
+        self.fallback_policy = fallback_policy
+        self.db_manager = db_manager
+        if db_manager is not None:
+            self.db_manager.init_topk_retriever(default_threshold=threshold)
+        self.logits_processor = None
+
+    @staticmethod
+    def _ensure_special_tokens(tokenizer, use_special_tokens=True):
+        if not use_special_tokens:
+            return False
+        added = False
+        special_tokens_dict = {"additional_special_tokens": []}
+        for tok in [DB_START_TOKEN, DB_SEP_TOKEN, DB_RETRIEVE_TOKEN, DB_END_TOKEN]:
+            if tokenizer.convert_tokens_to_ids(tok) == tokenizer.unk_token_id:
+                special_tokens_dict["additional_special_tokens"].append(tok)
+        if special_tokens_dict["additional_special_tokens"]:
+            tokenizer.add_special_tokens(special_tokens_dict)
+            added = True
+        # GPT-2 often has no dedicated pad token; align pad to eos
+        if tokenizer.pad_token is None:
+            tokenizer.pad_token = tokenizer.eos_token or ""
+        return added
+
+    @classmethod
+    def from_pretrained_with_db(cls, model_path, db_manager=None, use_special_tokens=True, threshold=0.6, fallback_policy=None, **kwargs):
+        # Load tokenizer first so we can add special tokens and then resize model embeddings appropriately
+        tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
+        added = cls._ensure_special_tokens(tokenizer, use_special_tokens=use_special_tokens)
+
+        config = AutoConfig.from_pretrained(model_path, **kwargs)
+        model = super().from_pretrained(model_path, config=config, **kwargs)
+
+        # switch class if loading base model
+        if not isinstance(model, cls):
+            model.__class__ = cls
+
+        # resize embeddings if we added tokens
+        if added:
+            model.resize_token_embeddings(len(tokenizer))
+
+        model.db_manager = db_manager
+        model.use_special_tokens = use_special_tokens
+        model.fallback_policy = fallback_policy
+        if model.db_manager is not None:
+            model.db_manager.init_topk_retriever(default_threshold=threshold)
+
+        # attach tokenizer for convenience (optional)
+        model._attached_tokenizer = tokenizer
+        return model
+
+    # --- utilities ---
+    def normalize_db_format(self, text):
+        text = re.sub(r'<\|db_entity\|>\s*', DB_START_TOKEN + ' ', text)
+        text = re.sub(r'<\|db_relationship\|>\s*', DB_SEP_TOKEN + ' ', text)
+        text = re.sub(r'<\|db_return\|>\s*', DB_RETRIEVE_TOKEN + ' ', text)
+        text = re.sub(r'<\|db_end\|>\s*', DB_END_TOKEN + ' ', text)
+        return text
+
+    def token_len_without_dblookups(self, text, tokenizer):
+        set_use_special_dblookup_tokens(use_special_dblookup_tokens=True)
+        org_text = remove_unwanted_dblookups(text, triplets_to_keep=[])
+        return len(tokenizer.encode(org_text))
+
+    def post_process(self, output_text, tokenizer):
+        # GPT-2 typically has no BOS; EOS is usually `` or "<|endoftext|>"
+        if tokenizer.bos_token:
+            output_text = output_text.replace(tokenizer.bos_token, "")
+        if tokenizer.eos_token:
+            output_text = output_text.replace(tokenizer.eos_token, "")
+        output_text = output_text.replace("<|endoftext|>", "")  # common GPT-2 eos string
+        output_text = remove_unwanted_dblookups(output_text, triplets_to_keep=[])
+        output_text = filter_incomplete_dblookups(output_text)
+        return output_text
+
+    # --- main entrypoint: mirrors your llama version ---
+    def generate_with_lookup(self, prompt, tokenizer, enable_dblookup, enable_postprocess=True, **kwargs):
+        # scrub generation kwargs we set ourselves
+        for k in ["input_ids", "attention_mask", "pad_token_id", "eos_token_id",
+                  "return_dict_in_generate", "output_scores", "logits_processor", "do_sample"]:
+            kwargs.pop(k, None)
+
+        max_new_tokens      = kwargs.pop("max_new_tokens", 256)
+        do_sample           = kwargs.pop("do_sample", False)
+        temperature         = kwargs.pop("temperature", 0.0)
+        top_p               = kwargs.pop("top_p", 0.9)
+        repetition_penalty  = kwargs.pop("repetition_penalty", 1.2)
+        max_lookup_limit    = kwargs.pop("max_lookup_limit", 5)
+
+        self.eval()
+        device = next(self.parameters()).device
+        finished = False
+
+        generate_kwargs = dict(
+            max_new_tokens=max_new_tokens,
+            repetition_penalty=repetition_penalty,
+            pad_token_id=tokenizer.pad_token_id if tokenizer.pad_token_id is not None else tokenizer.eos_token_id,
+            return_dict_in_generate=False,
+        )
+        if do_sample:
+            generate_kwargs.update(dict(do_sample=True, temperature=temperature, top_p=top_p))
+        else:
+            generate_kwargs.update(dict(do_sample=False))
+
+        if not enable_dblookup:
+            inputs = tokenizer(prompt, return_tensors="pt").to(device)
+            outputs = self.generate(
+                input_ids=inputs["input_ids"],
+                attention_mask=inputs.get("attention_mask"),
+                **generate_kwargs, **kwargs
+            )
+            output_text = self.normalize_db_format(tokenizer.decode(outputs[0], skip_special_tokens=False))
+            output_text = output_text.split(prompt)[-1]
+            if enable_postprocess:
+                output_text = self.post_process(output_text, tokenizer)
+            return output_text
+
+        # With DB lookup
+        self.set_logits_bias(tokenizer)
+
+        # GPT-2 EOS variants: try both
+        eos_ids = list({i for i in [
+            tokenizer.eos_token_id,
+            tokenizer.convert_tokens_to_ids(""),
+            tokenizer.convert_tokens_to_ids("<|endoftext|>")
+        ] if i is not None})
+
+        stop_token_ids = eos_ids + [
+            tokenizer.convert_tokens_to_ids(DB_RETRIEVE_TOKEN)
+        ]
+
+        generate_kwargs["eos_token_id"] = stop_token_ids
+
+        input_text = prompt
+
+        while not finished:
+            # Step 1: tokenize
+            inputs = tokenizer(input_text, return_tensors="pt").to(device)
+            input_len = inputs["input_ids"].shape[1]
+
+            # Step 2: generate until we hit one of stop ids
+            with torch.no_grad():
+                outputs = self.generate(
+                    input_ids=inputs["input_ids"],
+                    attention_mask=inputs.get("attention_mask"),
+                    logits_processor=self.logits_processor,
+                    **generate_kwargs, **kwargs
+                )
+
+            output_text = self._decode_with_special_tokens(outputs, tokenizer, input_len, input_text)
+            input_text += output_text
+
+            # Step 3: DB lookup if needed
+            if DB_RETRIEVE_TOKEN not in output_text:
+                break
+
+            try:
+                return_value = self.db_manager.retrieve_from_database(output_text)
+            except DatabaseLookupError as e:
+                logger.warning(f"Database lookup failed: {e}")
+                return_value, _ = self.handle_dblookup_failure(output_text)
+
+            # Step 4: append value + end token
+            input_text += return_value + DB_END_TOKEN
+
+            # stop conditions
+            if self.token_len_without_dblookups(input_text, tokenizer) >= max_new_tokens:
+                finished = True
+                logger.warning("Prompt exceeded max new tokens")
+            if input_text.count(DB_START_TOKEN) >= max_lookup_limit:
+                finished = True
+                logger.warning("Prompt exceeded max lookup limit")
+
+        final_text = input_text.split(prompt)[-1]
+        if enable_postprocess:
+            final_text = self.post_process(final_text, tokenizer)
+        return final_text
+
+    def set_logits_bias(self, tokenizer):
+        if self.logits_processor is not None:
+            return
+        entity_id = tokenizer.convert_tokens_to_ids(DB_START_TOKEN)
+        rel_id    = tokenizer.convert_tokens_to_ids(DB_SEP_TOKEN)
+        ret_id    = tokenizer.convert_tokens_to_ids(DB_RETRIEVE_TOKEN)
+        end_id    = tokenizer.convert_tokens_to_ids(DB_END_TOKEN)
+        bias = 2
+        logit_bias = {
+            entity_id: bias * 2,
+            rel_id: bias,
+            ret_id: bias,
+            end_id: bias
+        }
+        self.logits_processor = [LogitBiasProcessor(logit_bias)]
+        return
+
+    def _decode_with_special_tokens(self, outputs, tokenizer, input_len, input_text):
+        text = tokenizer.decode(outputs[0], skip_special_tokens=False)
+        text = self.normalize_db_format(text)
+        if input_text in text:
+            text = text.split(input_text, 1)[-1]
+        else:
+            # fallback slice
+            text = tokenizer.decode(outputs[0][input_len:], clean_up_tokenization_spaces=True)
+            text = self.normalize_db_format(text)
+        return text
+
+    def handle_dblookup_failure(self, output_text: str):
+        if self.fallback_policy == "unknown":
+            return "unknown", False
+        elif self.fallback_policy == "top1_anyway":
+            logger.info("Using top1 anyway as fallback policy.")
+            try:
+                return_value = self.db_manager.retrieve_from_database(output_text, threshold=0.0)
+                return return_value, False
+            except DatabaseLookupError:
+                return "unknown", False
+        elif self.fallback_policy == "regenerate_query":
+            logger.info("Retrying query generation after dblookup failure.")
+            raise NotImplementedError("Regenerate query not implemented yet.")
+        else:
+            logger.error(f"Unknown fallback policy: {self.fallback_policy}. Defaulting to 'unknown'.")
+            return "unknown", False
+
+
 class LogitBiasProcessor(LogitsProcessor):
     def __init__(self, bias_dict: dict):
         """
@@ -308,3 +537,46 @@ def load_model_and_tokenizer(model_path, database_path=None, model_args=None, de
 
     return model, tokenizer
 
+def load_gpt2_model_and_tokenizer(model_path, database_path=None, model_args=None, device="cuda"):
+    """
+    Load the LMLM model and tokenizer from pretrained checkpoints.
+    
+    Args:
+        model_path (str): Path to the pretrained model.
+        database_path (str, optional): Path to the database JSON file.
+        model_args (dict, optional): Additional arguments for model initialization.
+        device (str): Device to load the model onto.
+        
+    Returns:
+        model (PreTrainedModel): The loaded LMLM model.
+        tokenizer (PreTrainedTokenizer): The corresponding tokenizer.
+    """
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    tokenizer.pad_token = tokenizer.eos_token
+
+    db_manager = None
+    if database_path:
+        db_manager = DatabaseManager()
+        db_manager.load_database(database_path)
+
+    model = GPT2ForLMLM.from_pretrained_with_db(
+        model_path,
+        db_manager=db_manager,
+        **(model_args or {}),
+    )
+    model.to(device)
+
+    return model, tokenizer
+
+
+if __name__ == "__main__":
+    model_path = "./checkpoints/gpt2_dwiki6.1M_ep8_bsz320_new"
+    database_path = "./data/database/popqa-eval1399-Annotator_database.json"
+    model, tokenizer = load_gpt2_model_and_tokenizer(model_path, database_path, device="cuda")
+    print(model)
+    print(tokenizer)
+
+    prompt='Tell me a bio of Ko Itakura. Ko Itakura is'
+    output = model.generate_with_lookup(prompt, tokenizer, enable_dblookup=True, enable_postprocess=False)
+    print(output)
+    print(model.post_process(output, tokenizer))

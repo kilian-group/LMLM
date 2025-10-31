@@ -1,10 +1,41 @@
+"""Core data preparation functions for LMLM training."""
 from datasets import load_dataset
-from .utils import truncate_sample_length, chunk_wiki_text, add_shared_context_ids
-from typing import List, Tuple
+from .utils import truncate_sample_length, add_shared_context_ids
+from typing import List, Tuple, Callable, Dict
+
+# Global registry for dataset loaders
+_DATASET_REGISTRY: Dict[str, Callable] = {}
 
 
-def prepare_squad(split="train", subset_ids=None, **kwargs):
-    subset_ids = getattr(kwargs, "subset_ids", None)
+def register_dataset(name: str):
+    """Decorator to register dataset preparation functions.
+    
+    Args:
+        name: Unique identifier for the dataset
+        
+    Example:
+        @register_dataset("my_custom_dataset")
+        def prepare_my_dataset(split="train", subset_ids=None, **kwargs):
+            # ... implementation
+            return texts, ids
+    """
+    def decorator(func):
+        _DATASET_REGISTRY[name] = func
+        return func
+    return decorator
+
+
+@register_dataset("squad")
+def prepare_squad(split: str = "train", subset_ids: List[str] = None, **kwargs) -> Tuple[List[str], List[str]]:
+    """Prepare SQuAD v2 dataset for training.
+    
+    Args:
+        split: Dataset split to load
+        subset_ids: Optional list of IDs to filter dataset
+        
+    Returns:
+        Tuple of (texts, ids)
+    """
     dataset = load_dataset("rajpurkar/squad_v2", split=split)
     dataset = add_shared_context_ids(dataset)
     if subset_ids:
@@ -14,76 +45,59 @@ def prepare_squad(split="train", subset_ids=None, **kwargs):
     return texts, ids
 
 
-def prepare_dwiki(split="train", subset_ids=None, **kwargs):
-    subset_ids = getattr(kwargs, "subset_ids", None)
-    dataset = load_dataset("allenai/dolmino-mix-1124", "wiki", split=split)
-    if subset_ids:
-        dataset = dataset.filter(lambda ex: ex["id"] in set(subset_ids))
-    dataset = dataset.map(truncate_sample_length)
-    texts = [ex["text"] for ex in dataset]
-    ids = [ex["id"] for ex in dataset]
-    return texts, ids
-
-
-def prepare_fineweb(split="train", subset_ids=None, **kwargs):
-    subset_ids = getattr(kwargs, "subset_ids", None)
-    dataset = load_dataset("HuggingFaceFW/fineweb-edu", "sample-10BT", split=split)
-    if subset_ids:
-        dataset = dataset.filter(lambda ex: ex["id"] in set(subset_ids))
-    dataset = dataset.map(truncate_sample_length)
-    texts = [ex["text"] for ex in dataset]
-    ids = [ex["id"] for ex in dataset]
-    return texts, ids
-
-
-def prepare_trex11k(split="train"):
-    dataset = load_dataset("json", data_files=f"./data/trex_v4/trex11k_v4.json")[split]
-    texts = [ex["input_text"] for ex in dataset]
-    ids = [ex["uuid"] for ex in dataset]
-    return texts, ids
-
-
-def prepare_dwiki_bio(split="train", subset_ids=None, **kwargs):
-    subset_ids = getattr(kwargs, "subset_ids", None)
-    dataset = load_dataset("allenai/dolmino-mix-1124", "wiki", split=split)
-    if subset_ids:
-        dataset = dataset.filter(lambda ex: ex["id"] in set(subset_ids))
-    texts = [ex["text"] for ex in dataset]
-    ids = [ex["id"] for ex in dataset]
-    return chunk_wiki_text(texts, ids)
-
-
-def prepare_wiki_eval(split="train", subset_ids=None, **kwargs):
-    dataset = load_dataset("json", data_files=f"../LLM-Shearing/datasets/eval/wiki_eval500.json")[split]
-    texts = [ex["text"] for ex in dataset]
-    ids = [ex["id"] for ex in dataset]
-    return texts, ids
-
-
-def prepare_conflictsbench(split="train", subset_ids=None, **kwargs):
-    dataset = load_dataset("Warrieryes/CB_qa", split=split)
-    def is_wiki(row):
-        return str(row.get("default_evidence_category", "")).strip().lower() == "wikipedia" and str(row.get("semantic_conflict_evidence_category", "")).strip().lower() == "wikipedia"
+@register_dataset("pretrain_wiki")
+def prepare_dwiki(split: str = "train", subset_ids: List[str] = None, **kwargs) -> Tuple[List[str], List[str]]:
+    """Prepare Dolmino Wiki dataset for training.
     
-    dataset = dataset.filter(is_wiki)
-    # get the first 1000 examples
-    dataset = dataset.select(range(1000))
-
-    texts = [ex["semantic_conflict_evidence"] for ex in dataset]
-    ids = [i for i in range(len(texts))]
-
+    Args:
+        split: Dataset split to load
+        subset_ids: Optional list of IDs to filter dataset
+        
+    Returns:
+        Tuple of (texts, ids)
+    """
+    dataset = load_dataset("allenai/dolmino-mix-1124", "wiki", split=split)
+    if subset_ids:
+        dataset = dataset.filter(lambda ex: ex["id"] in set(subset_ids))
+    dataset = dataset.map(truncate_sample_length)
+    texts = [ex["text"] for ex in dataset]
+    ids = [ex["id"] for ex in dataset]
     return texts, ids
+
 
 def prepare_data(dataset_name: str, **kwargs) -> Tuple[List[str], List[str]]:
-    dispatch = {
-        "squad": prepare_squad,
-        "allenai/dolmino-mix-1124": prepare_dwiki,
-        "fineweb": prepare_fineweb,
-        "trex11k": prepare_trex11k,
-        "dwiki_bio": prepare_dwiki_bio,
-        "wiki_eval": prepare_wiki_eval,
-        "conflictsbench": prepare_conflictsbench,
-    }
-    if dataset_name not in dispatch:
-        raise ValueError(f"Unknown dataset: {dataset_name}")
-    return dispatch[dataset_name](**kwargs)
+    """Prepare dataset for LMLM training.
+    
+    Supports both built-in datasets and custom registered datasets.
+    To use experimental datasets, import the experimental dataloader module first:
+        from experiment.annotate import dataloader_experimental
+    
+    Args:
+        dataset_name: Name of the dataset to prepare
+        **kwargs: Additional arguments passed to dataset preparation function
+        
+    Returns:
+        Tuple of (texts, ids)
+        
+    Raises:
+        ValueError: If dataset_name is not supported
+        
+    Examples:
+        >>> texts, ids = prepare_data("squad", split="train")
+        >>> texts, ids = prepare_data("pretrain_wiki", split="train")
+    """
+    if dataset_name not in _DATASET_REGISTRY:
+        raise ValueError(
+            f"Unknown dataset: {dataset_name}. "
+            f"Available datasets: {list(_DATASET_REGISTRY.keys())}"
+        )
+    return _DATASET_REGISTRY[dataset_name](**kwargs)
+
+
+def get_available_datasets() -> List[str]:
+    """Return list of registered dataset names.
+    
+    Returns:
+        List of dataset names that can be used with prepare_data()
+    """
+    return list(_DATASET_REGISTRY.keys())

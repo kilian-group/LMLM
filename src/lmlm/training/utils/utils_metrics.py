@@ -88,6 +88,8 @@ def compute_loss_func(outputs, labels, num_items_in_batch, include_eos=False):
 
 
 def compute_pretrain_mask(shift_labels, include_eos=False):
+    if not USE_SPECIAL_DBLOOKUP_TOKENS:
+        raise ValueError("Current method does not support USE_SPECIAL_DBLOOKUP_TOKENS=False. It is already deprecated.")
     mask_batch = extract_dblookup_masks(shift_labels, TOKENIZER, pretrain_mask_only=True, include_eos=include_eos)
     valid_mask = shift_labels != -100
     pretrain_mask = mask_batch["pretrain"] & valid_mask
@@ -99,6 +101,7 @@ def compute_org_mask(shift_labels, include_eos=False):
     org_mask = mask_batch["org"] & valid_mask
 
     return org_mask # same shape as shift_labels
+
 
 # --------------------
 # Perplexity Metrics

@@ -3,8 +3,8 @@ import os
 import re
 from lmlm.database.database_manager import extract_database
 
-USE_SPECIAL_DBLOOKUP_TOKENS = False
-def set_use_special_dblookup_tokens(use_special_dblookup_tokens=False):
+USE_SPECIAL_DBLOOKUP_TOKENS = True
+def set_use_special_dblookup_tokens(use_special_dblookup_tokens=True):
     global USE_SPECIAL_DBLOOKUP_TOKENS
     USE_SPECIAL_DBLOOKUP_TOKENS = use_special_dblookup_tokens
 
@@ -106,44 +106,10 @@ def remove_unwanted_dblookups(text, triplets_to_keep=None, triplets_to_remove=No
     for pattern in pattern_lst:
         cleaned_text = re.sub(pattern, replacement, cleaned_text, flags=re.DOTALL)
     
+    if triplets_to_keep == []:
+        # need to remove the incomplete dblookups
+        cleaned_text = filter_incomplete_dblookups(cleaned_text)
     return cleaned_text
-
-import re
-
-def filter_incomplete_dblookups(example):
-    """
-    Remove both well-formed and incomplete dblookup patterns (e.g., [dblookup(...)] or <|db_entity|>...)
-    that appear in the annotated text. Useful for cleaning examples before training or evaluation.
-
-    Args:
-        example (dict): A dictionary with "annotated_text" key.
-
-    Returns:
-        dict: The modified example with dblookup patterns removed.
-    """
-    text = example["annotated_text"]
-
-    # Patterns to remove complete dblookup formats
-    pattern_lst = [
-        r"\s?<\|db_entity\|>(.+?)<\|db_relationship\|>(.+?)<\|db_return\|>(.+?)<\|db_end\|>",
-        r'\s?\[dblookup\(([^,]+),\s*([^,]+)\)\s*->\s*(.*?)\]',
-        r"\s?\[dblookup\('(.+?)',\s*'(.+?)'\)\s*->\s*(.+?)\]"
-    ]
-    
-    # Remove complete patterns
-    for pattern in pattern_lst:
-        text = re.sub(pattern, '', text)
-
-    # Remove incomplete [dblookup(...] or <|db_entity|>... patterns at the end
-    incomplete_patterns = [
-        r'\[dblookup[^\]]*$',                      # Unclosed square bracket style
-        r'<\|db_entity\|>.*$'                      # Unclosed angle-bracket style
-    ]
-    for incomplete in incomplete_patterns:
-        text = re.sub(incomplete, '', text)
-
-    example["annotated_text"] = text.strip()
-    return example
 
 
 def extract_last_match(text):
@@ -337,22 +303,41 @@ def filter_incomplete_dblookups(example):
     else:
         text = example
 
-    # Patterns to remove complete dblookup formats
-    pattern_lst = [
-        r"\s?<\|db_entity\|>(.+?)<\|db_relationship\|>(.+?)<\|db_return\|>(.+?)<\|db_end\|>",
-        r'\s?\[dblookup\(([^,]+),\s*([^,]+)\)\s*->\s*(.*?)\]',
-        r"\s?\[dblookup\('(.+?)',\s*'(.+?)'\)\s*->\s*(.+?)\]"
-    ]
+    # Step1: Remove complete dblookup formats
+    if USE_SPECIAL_DBLOOKUP_TOKENS:
+        pattern_lst = [
+            r"\s?<\|db_entity\|>(.+?)<\|db_relationship\|>(.+?)<\|db_return\|>(.+?)<\|db_end\|>",
+        ]
+    else:
+        pattern_lst = [
+            r'\s?\[dblookup\(([^,]+),\s*([^,]+)\)\s*->\s*(.*?)\]',
+            r"\s?\[dblookup\('(.+?)',\s*'(.+?)'\)\s*->\s*(.+?)\]"
+        ]
     
-    # Remove complete patterns
     for pattern in pattern_lst:
         text = re.sub(pattern, '', text)
+    
+    ## Step2: Remove incomplete dblookups that are not closed in either beginning or end by appending <|db_entity|> or <|db_end|>
+    starts = [m.start() for m in re.finditer(r"<\|db_entity\|>", text)]
+    ends   = [m.start() for m in re.finditer(r"<\|db_end\|>", text)]
 
-    # Remove incomplete [dblookup(...] or <|db_entity|>... patterns at the end
-    incomplete_patterns = [
-        r'\[dblookup[^\]]*$',                      # Unclosed square bracket style
-        r'<\|db_entity\|>.*$'                      # Unclosed angle-bracket style
-    ]
+    if ends and not starts or starts and ends and starts[0] > ends[0]:
+        # the case where the sentence starts with <|db_end|>
+        text = "<|db_entity|>" + text
+    if starts and not ends or starts and ends and starts[-1] > ends[-1]:
+        # the case where the sentence ends with <|db_entity|>
+        text = text + "<|db_end|>"
+
+    ## Remove incomplete [dblookup(...] or <|db_entity|>... patterns at the end
+    if USE_SPECIAL_DBLOOKUP_TOKENS:
+        incomplete_patterns = [
+            r'\s?<\|db_entity\|>(.*?)<\|db_end\|>'                      # Unclosed angle-bracket style
+        ]
+    else:
+        incomplete_patterns = [
+            r'\[dblookup[^\]]*$',                      # Unclosed square bracket style
+        ]
+
     for incomplete in incomplete_patterns:
         text = re.sub(incomplete, '', text)
 

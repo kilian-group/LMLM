@@ -1,5 +1,5 @@
 
-# LMLM🐑: Pre-training Large Memory Language Models with Internal and External Knowledge
+# LMLM🐑: Pre-training Limited Memory Language Models with Internal and External Knowledge
 
 <p align="center">
   <img src="figs/lmlm_banner_v2.png" width="600"/>
@@ -7,16 +7,8 @@
 
 <p align="center">
   <strong>Official repository for the paper:</strong><br>
-  <a href="https://arxiv.org/abs/2505.15962">
-    <em>Pre-training Large Memory Language Models with Internal and External Knowledge</em>
+    <strong>Pre-training Limited Memory Language Models with Internal and External Knowledge</strong>
   </a>
-</p>
-
-<p align="center">
-  Linxi Zhao, Sofian Zalouk, Christian K. Belardi, Justin Lovelace, Jin Peng Zhou,  
-  Kilian Q. Weinberger, Yoav Artzi, Jennifer J. Sun  
-  <br>
-  <em>Cornell University</em>
 </p>
 
 
@@ -34,7 +26,7 @@
 
 Neural language models entangle language and knowledge, making it hard to verify, update, or forget facts.
 
-**Large Memory Language Models (LMLMs)** address this by combining:
+**Limited Memory Language Models (LMLMs)** address this by combining:
 
 * **Internal memory** (parameters) for fluency and reasoning
 * **External memory** (database) for accurate, editable knowledge
@@ -83,14 +75,16 @@ from lmlm.database import DatabaseManager
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 tokenizer.pad_token = tokenizer.eos_token
 
-db = DatabaseManager().load_database(database_path) if database_path else None
-model = LlamaForLMLM.from_pretrained_with_db(model_path, db_manager=db, use_special_tokens=True).cuda().eval()
+db_manager = DatabaseManager()
+db_manager.load_database(database_path) if os.path.exists(database_path) else None
+model = LlamaForLMLM.from_pretrained_with_db(model_path, db_manager=db_manager, use_special_tokens=True).cuda().eval()
 
 output = model.generate_with_lookup(
     prompt='Tell me a bio of Ko Itakura. Ko Itakura is',
     tokenizer=tokenizer,
     max_new_tokens=256,
     enable_dblookup=True,
+    enable_postprocess=False,
 )
 print(model.post_process(output, tokenizer))
 ```
@@ -109,7 +103,7 @@ To build your own LMLM? See 👉 [Build Your Own LMLM](#build-your-own-lmlm-pipe
 | LMLM Model      | LLaMA-2-382M pretrained on annotated Wikipedia with external memory         | [kilian-group/LMLM-llama2-382M](https://huggingface.co/kilian-group/LMLM-llama2-382M)                        |
 | Standard Model  | LLaMA-2-176M pretrained on the same data without external memory (baseline) | [kilian-group/Standard-llama2-176M](https://huggingface.co/kilian-group/Standard-llama2-176M)                |
 | Standard Model  | LLaMA-2-382M pretrained on the same data without external memory (baseline) | [kilian-group/Standard-llama2-382M](https://huggingface.co/kilian-group/Standard-llama2-382M)                |
-| Pretrained Data |  Wikipedia from OLMo2     | [kilian-group/LMLM-pretrain-dwiki6.1M](https://huggingface.co/datasets/kilian-group/LMLM-pretrain-dwiki6.1M) |
+| Pretrained Data |  Wikipedia from OLMo2     | [kilian-group/LMLM-pretrain-dwiki6.1M_cleaned](https://huggingface.co/datasets/kilian-group/LMLM-pretrain-dwiki6.1M_cleaned) |
 | Database        | 54.6M knowledge triplets extracted from the full annotated corpus           | [kilian-group/LMLM-database](https://huggingface.co/datasets/kilian-group/LMLM-database)                     |
 
 
@@ -342,7 +336,7 @@ LMLM/
 
 ## Implementation Limitations and TODOs
 <details> <summary>
-This is an early-stage implementation of Large Memory Language Models (LMLMs), and there are several known limitations and areas for future improvement. We welcome feedback, contributions, and extensions that push this framework further.
+This is an early-stage implementation of Limited Memory Language Models (LMLMs), and there are several known limitations and areas for future improvement. We welcome feedback, contributions, and extensions that push this framework further.
 </summary>
 
 * **No batch inference**: The custom model class LlamaForLMLM currently does not support batched generate_with_lookup inference.
@@ -362,13 +356,14 @@ This is an early-stage implementation of Large Memory Language Models (LMLMs), a
 If you find this work helpful, please consider citing:
 
 ```bibtex
-@misc{zhao2025pretraininglargememorylanguage,
-  title={Pre-training Large Memory Language Models with Internal and External Knowledge},
-  author={Linxi Zhao and Sofian Zalouk and Christian K. Belardi and Justin Lovelace and Jin Peng Zhou and Kilian Q. Weinberger and Yoav Artzi and Jennifer J. Sun},
-  year={2025},
-  eprint={2505.15962},
-  archivePrefix={arXiv},
-  primaryClass={cs.CL}
+@misc{zhao2025pretraininglimitedmemorylanguage,
+      title={Pre-training Limited Memory Language Models with Internal and External Knowledge}, 
+      author={Linxi Zhao and Sofian Zalouk and Christian K. Belardi and Justin Lovelace and Jin Peng Zhou and Ryan Thomas Noonan and Dongyoung Go and Kilian Q. Weinberger and Yoav Artzi and Jennifer J. Sun},
+      year={2025},
+      eprint={2505.15962},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2505.15962}, 
 }
 ```
 

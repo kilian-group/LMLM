@@ -8,8 +8,8 @@ PROMPT_ID=llama-v6.1
 FORMAT=json
 SEED=42
 
-DATASET=conflictsbench
-MANAGER=${DATASET}-train1000
+DATASET=pretrain_wiki
+MANAGER=${DATASET}-train-wiki6.1M
 SUBSET=ids/${MANAGER}-ids
 
 CONFIG_FILE=llama/default
@@ -25,6 +25,6 @@ python -m lmlm.annotate.annotate \
     --dataset ${DATASET} \
     --format ${FORMAT} \
     --seed ${SEED} \
-    --save-every 100 \
+    --save-every 500 \
     --save-dir ${SAVE_DIR} \
     # --subset ${SUBSET}

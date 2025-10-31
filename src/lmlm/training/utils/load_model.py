@@ -9,8 +9,7 @@ from transformers import (
     GPT2TokenizerFast,
 )
 from peft import PeftModel
-from lmlm.constants import CONFIGS_DIR
-from lmlm.constants import DB_START_TOKEN, DB_SEP_TOKEN, DB_RETRIEVE_TOKEN, DB_END_TOKEN
+from lmlm.constants import CONFIGS_DIR, DB_START_TOKEN, DB_SEP_TOKEN, DB_RETRIEVE_TOKEN, DB_END_TOKEN, TINY_LLAMA2_TOKENIZER_PATH
 
 
 def initialize_model_for_pretraining(model_args, resume_from_checkpoint=None, use_special_dblookup_tokens=False):
@@ -123,7 +122,7 @@ def load_tiny_llama2_tokenizer(add_special_tokens=False):
     """
     Load tokenizer for Tiny LLaMA2, optionally with special tokens.
     """
-    tokenizer = AutoTokenizer.from_pretrained("./tokenizer/tiny-llama2")
+    tokenizer = AutoTokenizer.from_pretrained(TINY_LLAMA2_TOKENIZER_PATH)
     tokenizer.pad_token = tokenizer.eos_token
 
     if add_special_tokens:
@@ -139,7 +138,7 @@ def load_tiny_llama2_model(model_name_or_path, model_args, use_special_dblookup_
     if not os.path.exists(model_path):
         raise ValueError(f"Model {model_name_or_path} not found in {CONFIGS_DIR}")
 
-    tokenizer = AutoTokenizer.from_pretrained("./tokenizer/tiny-llama2")
+    tokenizer = AutoTokenizer.from_pretrained(TINY_LLAMA2_TOKENIZER_PATH)
     tokenizer.pad_token = tokenizer.eos_token
     config = AutoConfig.from_pretrained(model_path)
 
